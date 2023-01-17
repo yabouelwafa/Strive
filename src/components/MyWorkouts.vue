@@ -46,7 +46,9 @@
     <v-dialog v-model="overlay" fullscreen>
       <v-card :loading="loading">
         <v-card-title>
-          <v-toolbar width="100%" height="30px" color="cyan" dark flat>
+          <v-toolbar width="100%" height="50px" color="cyan" dark flat>
+            <v-icon dark>mdi-weight-lifter</v-icon>
+
             <v-spacer></v-spacer>
 
             <v-tabs v-model="tab" align-with-title>
@@ -62,21 +64,39 @@
         </v-card-title>
         <v-card-text>
           <v-tabs-items v-model="tab">
-            <v-tab-item v-for="item in items" :key="item">
+            <v-tab-item v-for="exercise in exercises" :key="exercise">
               <v-card>
-                <v-card-text>{{ text }}</v-card-text>
+                <div class="d-flex flex-row ma-auto" justify="center">
+                  <v-card-title class="mx-13 t">Sets</v-card-title>
+                  <v-card-title class="mx-13 t">Reps</v-card-title>
+                  <v-card-title class="mx-13 t">Weight</v-card-title>
+                </div>
+                <v-card width="650px" v-for="n in exercise.sets" :key="n">
+                  <div class="d-flex flex-row">
+                    <v-card-title class="ma-13">{{ n }}</v-card-title>
+                    <v-text-field
+                      solo
+                      label="0"
+                      outlined
+                      class="my-13 mr-13 ml-5"
+                      type="number"
+                    />
+                    <v-text-field
+                      type="number"
+                      solo
+                      label="0"
+                      outlined
+                      class="my-13"
+                    />
+                    <btn>X</btn>
+                  </div>
+                </v-card>
               </v-card>
+              <v-btn @click="addSet(exercise)">Add Set</v-btn>
             </v-tab-item>
           </v-tabs-items>
         </v-card-text>
-        <v-card-actions class="d-flex flex-column">
-          <v-btn color="orange lighten-2" @click="clearExercises()">
-            Hide Overlay
-          </v-btn>
-          <div v-for="exercise of exercises" :key="exercise.id">
-            {{ exercise }}
-          </div>
-        </v-card-actions>
+        <v-card-actions class="d-flex flex-column"> </v-card-actions>
       </v-card>
     </v-dialog>
 
@@ -105,7 +125,6 @@ export default {
     //Exercise tabs
     tab: null,
     items: ["web", "shopping", "videos", "images", "news"],
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
 
     loading: false,
     showAdd: false,
@@ -187,6 +206,7 @@ export default {
         this.exercises.push({
           id: doc.id,
           ...doc.data(),
+          sets: 0,
         });
       });
       this.loading = false;
@@ -195,12 +215,20 @@ export default {
       this.overlay = false;
       this.exercises = [];
     },
+    addSet(exercise) {
+      exercise.sets += 1;
+    },
   },
 };
 </script>
 
 <style scoped>
 .title {
+  font-style: italic;
+}
+
+.t {
+  font-size: x-large;
   font-style: italic;
 }
 </style>

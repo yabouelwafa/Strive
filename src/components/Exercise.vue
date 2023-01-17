@@ -5,7 +5,7 @@
     <v-expansion-panel class="">
       <v-expansion-panel-header>{{ exercise.name }}</v-expansion-panel-header>
       <v-expansion-panel-content>
-        <v-card-subtitle class="pl-4 desc-sub">Descreption</v-card-subtitle>
+        <v-card-subtitle class="pl-4 desc-sub">Discreption</v-card-subtitle>
         <p class="ml-6 descreption" align="left">
           {{ exercise.description }}
         </p>

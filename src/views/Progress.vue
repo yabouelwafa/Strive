@@ -1,3 +1,12 @@
 <template>
-  <h2>Progress</h2>
+  <Progress></Progress>
 </template>
+
+<script>
+import Progress from "@/components/Progress.vue";
+
+export default {
+  setup() {},
+  components: { Progress },
+};
+</script>
